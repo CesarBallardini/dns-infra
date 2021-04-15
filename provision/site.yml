@@ -12,6 +12,14 @@
       master: true
       slave: false
       local-address: '192.168.44.10'
+      # API Configuration
+      api: yes
+      api-key: "powerdns"
+      # Embedded webserver
+      webserver: yes
+      webserver-address: "192.168.33.10"
+      webserver-port: "8001"
+      webserver-allow-from: "192.168.33.10"
     pdns_backends:
       gsqlite3:
         database: "{{ database_name }}"

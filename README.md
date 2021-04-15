@@ -101,8 +101,11 @@ ansible-galaxy install -r requirements.yml --roles-path=provision/roles/
 time vagrant up
 ```
 
+Seguir las [instrucciones manuales](docs/manual-install-nsedit.md)  para instalar nsedit en `blindmaster0`.
 
 ## Verificar el funcionamiento
+
+* [Verificaciones mínimas para PowerDNS](verificaciones-powerdns.md)
 
 FIXME: TODO
 

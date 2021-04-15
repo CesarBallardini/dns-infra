@@ -60,9 +60,9 @@ Ejemplo:
 
 # Que está funcionando en este momento:
 
-* `blindmaster0` tiene intslados:
-  * PowerDNS
-  * nsedit
+* `blindmaster0` tiene instalados:
+  * PowerDNS 
+  * nsedit (instalado manualmente)
 * `testinterna0` puede consultar registros de DNS en `blindmaster0`
 
 A medida que vaya avanzando, iré actualizando esta sección.  La meta es replicar la arquitectura

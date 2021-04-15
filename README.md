@@ -71,8 +71,8 @@ Verificado con Ansible versión 2.8.6, python version 3.6.8
 ## Clone el repo
 
 ```bash
-git clone FIXME
-cd  FIXME
+git clone https://github.com/CesarBallardini/dns-infra
+cd  dns-infra/
 ```
 
 ## Instalar módulos requeridos para los roles Ansible
@@ -92,7 +92,7 @@ time vagrant up
 
 ## Verificar el funcionamiento
 
-FIXME
+FIXME: TODO
 
 
 # Referencias

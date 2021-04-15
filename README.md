@@ -105,7 +105,7 @@ Seguir las [instrucciones manuales](docs/manual-install-nsedit.md)  para instala
 
 ## Verificar el funcionamiento
 
-* [Verificaciones mínimas para PowerDNS](verificaciones-powerdns.md)
+* [Verificaciones mínimas para PowerDNS](docs/verificaciones-powerdns.md)
 
 FIXME: TODO
 

@@ -47,14 +47,54 @@ Ejemplo:
 
 # Catálogo de nodos
 
-| nombre       | red   | dirección IP  |
-|--------------|-------|---------------|
-| blindmaster0 | mgmt  | 192.168.33.10 |
-|              | infra | 192.168.44.10 |
+| nombre       | red   | dirección IP  | descripción                                         |
+|--------------|-------|---------------|-----------------------------------------------------|
+| blindmaster0 | nat   | 10.0.2.15     | NAT VB network: internet access                     |
+|              | mgmt  | 192.168.33.10 | management network: provision, ssh                  |
+|              | infra | 192.168.44.10 | infrastructure network: service network for clients |
 
+# Uso de este repositorio
+
+## Instale los requisitos para que funcione ansible
+
+```bash
+sudo apt-get install -y python3-pip
+sudo -H python3 -m pip install --upgrade pip setuptools wheel
+sudo -H python3 -m pip install --upgrade ansible
+```
+
+Verificado con Ansible versión 2.8.6, python version 3.6.8
+
+## Clone el repo
+
+```bash
+git clone FIXME
+cd  FIXME
+```
+
+## Instalar módulos requeridos para los roles Ansible
+
+```bash
+mkdir provision/roles/
+ansible-galaxy install -r requirements.yml --roles-path=provision/roles/
+```
+
+
+## Levantar la infraestructura
+
+```bash
+time vagrant up
+```
+
+
+## Verificar el funcionamiento
+
+FIXME
 
 
 # Referencias
 
 * https://jpmens.net/2010/10/29/alternative-dns-servers-the-book-as-pdf/ Alternative DNS Servers by Jan-Piet Mens
+* https://github.com/PowerDNS/pdns-ansible
+* https://github.com/tuxis-ie/nsedit
 

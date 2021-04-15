@@ -1,0 +1,35 @@
+# hosts en Vagrantfile
+
+blindmaster0 ansible_host=192.168.33.10
+nodo2        ansible_host=192.168.33.11
+
+
+
+[powerdns]
+blindmaster0
+
+
+
+[vagrantnodes]
+blindmaster0
+nodo2
+
+[python3]
+blindmaster0
+nodo2
+
+[python3:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[vagrantnodes:vars]
+ansible_user=vagrant
+ansible_password=vagrant
+ansible_sudo_password=vagrant
+
+
+##
+# si hay errores de hash alterados, correr:
+#
+# ssh-keygen -f "/home/cesarballardini/.ssh/known_hosts" -R 192.168.33.10
+# ssh-keyscan 192.168.33.10 >> ~/.ssh/known_hosts
+

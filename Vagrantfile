@@ -26,7 +26,7 @@ generic_box = "debian/contrib-buster64"
 
 boxes = [
     {
-        :name => "nodo1",
+        :name => "blindmaster0",
         :eth1 => "192.168.33.10", :netmask1 => "255.255.255.0",
         :eth2 => "192.168.44.10", :netmask2 => "255.255.255.0",
         :mem => "1024", :cpu => "1",
@@ -117,7 +117,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       nodo.vm.synced_folder ".", "/vagrant", disabled: false, SharedFoldersEnableSymlinksCreate: false
-      nodo.vm.network :private_network, ip: nodo_opts[:eth1], :netmask => nodo_opts[:netmask1], virtualbox__intnet: true # infra
+      nodo.vm.network :private_network, ip: nodo_opts[:eth1], :netmask => nodo_opts[:netmask1]                           # mgmt
+      nodo.vm.network :private_network, ip: nodo_opts[:eth2], :netmask => nodo_opts[:netmask2], virtualbox__intnet: true # infra
     end
   end
 
@@ -164,23 +165,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
     end
 
-#    config.vm.provision "ansible-provision", type: :ansible do |ansible|
-#      ansible.playbook = "provision/site.yml"
-#      #ansible.config_file = "./vagrant-inventory/ansible.cfg"
-#      #ansible.inventory_path = "./vagrant-inventory/"
-#      ansible.verbose= "-vv"
-#      ansible.become = false
-#      # heredo la configuracion de Proxy del entorno del host Vagrant:
-#      ansible.extra_vars = {
-#        organizacion: "My organization",
-#        all_proxy:   ENV['all_proxy']   || ENV['http_proxy']  || "",
-#        http_proxy:  ENV['http_proxy']  || "",
-#        https_proxy: ENV['https_proxy'] || "",
-#        ftp_proxy:   ENV['ftp_proxy']   || "",
-#        no_proxy:    ENV['no_proxy']    || "",
-#
-#        devops_user_name: 'vagrant',
-#      }
-#    end
+    config.vm.provision "ansible-provision", type: :ansible do |ansible|
+      ansible.playbook = "provision/site.yml"
+      ansible.config_file = "./vagrant-inventory/ansible.cfg"
+      ansible.inventory_path = "./vagrant-inventory/"
+      ansible.verbose= "-vv"
+      ansible.become = false
+      # heredo la configuracion de Proxy del entorno del host Vagrant:
+      ansible.extra_vars = {
+        organizacion: "My organization",
+        all_proxy:   ENV['all_proxy']   || ENV['http_proxy']  || "",
+        http_proxy:  ENV['http_proxy']  || "",
+        https_proxy: ENV['https_proxy'] || "",
+        ftp_proxy:   ENV['ftp_proxy']   || "",
+        no_proxy:    ENV['no_proxy']    || "",
+
+      }
+    end
 
 end

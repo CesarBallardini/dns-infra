@@ -34,12 +34,12 @@ boxes = [
         :autostart => true
     },
     {
-        :name => "nodo2",
-        :eth1 => "192.168.33.11", :netmask1 => "255.255.255.0",
-        :eth2 => "192.168.44.11", :netmask2 => "255.255.255.0",
+        :name => "testinterna0",
+        :eth1 => "192.168.33.100", :netmask1 => "255.255.255.0",
+        :eth2 => "192.168.44.100", :netmask2 => "255.255.255.0",
         :mem => "1024", :cpu => "1",
         :box => generic_box,
-        :autostart => false
+        :autostart => true
     },
     {
         :name => "nodo3",

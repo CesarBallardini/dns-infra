@@ -1,7 +1,7 @@
 # hosts en Vagrantfile
 
-blindmaster0 ansible_host=192.168.33.10
-nodo2        ansible_host=192.168.33.11
+blindmaster0  ansible_host=192.168.33.10
+testinterna0  ansible_host=192.168.33.100
 
 
 
@@ -12,11 +12,11 @@ blindmaster0
 
 [vagrantnodes]
 blindmaster0
-nodo2
+testinterna0
 
 [python3]
 blindmaster0
-nodo2
+testinterna0
 
 [python3:vars]
 ansible_python_interpreter=/usr/bin/python3

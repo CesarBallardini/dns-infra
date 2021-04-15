@@ -47,11 +47,14 @@ Ejemplo:
 
 # Catálogo de nodos
 
-| nombre       | red   | dirección IP  | descripción                                         |
-|--------------|-------|---------------|-----------------------------------------------------|
-| blindmaster0 | nat   | 10.0.2.15     | NAT VB network: internet access                     |
-|              | mgmt  | 192.168.33.10 | management network: provision, ssh                  |
-|              | infra | 192.168.44.10 | infrastructure network: service network for clients |
+| nombre       | red   | dirección IP   | descripción                                         |
+|--------------|-------|----------------|-----------------------------------------------------|
+| blindmaster0 | nat   | 10.0.2.15      | NAT VB network: internet access                     |
+|              | mgmt  | 192.168.33.10  | management network: provision, ssh                  |
+|              | infra | 192.168.44.10  | infrastructure network: service network for clients |
+|                                                                                             |
+| testinterna0 | mgmt  | 192.168.33.100 | VM con acceso a la ren infra para testing           |
+|              | mgmt  | 192.168.44.100 |                                                     |
 
 # Uso de este repositorio
 

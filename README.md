@@ -56,6 +56,18 @@ Ejemplo:
 | testinterna0 | mgmt  | 192.168.33.100 | VM con acceso a la ren infra para testing           |
 |              | mgmt  | 192.168.44.100 |                                                     |
 
+
+
+# Que está funcionando en este momento:
+
+* `blindmaster0` tiene intslados:
+  * PowerDNS
+  * nsedit
+* `testinterna0` puede consultar registros de DNS en `blindmaster0`
+
+A medida que vaya avanzando, iré actualizando esta sección.  La meta es replicar la arquitectura
+que se describió en la presentación irlandesa.
+
 # Uso de este repositorio
 
 ## Instale los requisitos para que funcione ansible

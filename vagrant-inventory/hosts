@@ -8,6 +8,9 @@ testinterna0  ansible_host=192.168.33.100
 [powerdns]
 blindmaster0
 
+[nsedit]
+blindmaster0
+
 
 
 [vagrantnodes]

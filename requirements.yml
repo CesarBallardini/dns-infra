@@ -4,3 +4,19 @@
   version: v1.6.1
   scm: git
   name: PowerDNS.pdns
+
+- src:  https://github.com/geerlingguy/ansible-role-nginx
+  version: 3.0.0
+  scm: git
+  name: geerlingguy.nginx
+
+- src: https://github.com/geerlingguy/ansible-role-php-versions
+  version: 5.0.0
+  scm: git
+  name: geerlingguy.php-versions
+
+- src: https://github.com/geerlingguy/ansible-role-php
+  version: 4.5.1
+  scm: git
+  name: geerlingguy.php
+

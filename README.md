@@ -101,11 +101,18 @@ ansible-galaxy install -r requirements.yml --roles-path=provision/roles/
 time vagrant up
 ```
 
-Seguir las [instrucciones manuales](docs/manual-install-nsedit.md)  para instalar nsedit en `blindmaster0`.
-
 ## Verificar el funcionamiento
 
+* dar de alta en DNS el nodo, por ejemplo:
+
+```bash
+echo '192.168.33.10   nsedit.infra.ballardini.com.ar' | sudo tee /etc/hosts > /dev/null
+```
+
+
 * [Verificaciones mínimas para PowerDNS](docs/verificaciones-powerdns.md)
+
+* http://https://nsedit.infra.ballardini.com.ar/   credenciales: `admin / admin`
 
 FIXME: TODO
 
@@ -115,4 +122,22 @@ FIXME: TODO
 * https://jpmens.net/2010/10/29/alternative-dns-servers-the-book-as-pdf/ Alternative DNS Servers by Jan-Piet Mens
 * https://github.com/PowerDNS/pdns-ansible
 * https://github.com/tuxis-ie/nsedit
+* https://github.com/geerlingguy/ansible-role-nginx
+* https://phpipam.net/ phpIPAM – Open source IP address management
+* https://github.com/mrlesmithjr/ansible-phpipam
+* [Instrucciones manuales](docs/manual-install-nsedit.md)  para instalar nsedit en `blindmaster0`.
+
+
+# Otras referencias de alternativas no empleadas
+
+
+* http://spritelink.github.io/NIPAP/ nipap is a sleek, intuitive and powerful IP address management system built to handle large amounts of IP addresses.
+* https://github.com/netbox-community/netbox NetBox is an IP address management (IPAM) and data center infrastructure management (DCIM) tool. Initially conceived by the network engineering team at DigitalOcean, NetBox was developed specifically to address the needs of network and infrastructure engineers. It is intended to function as a domain-specific source of truth for network operations.
+
+* https://github.com/nullconfig/phpipam-api Playbooks for interacting with the phpipam api
+* https://www.dideo.ir/v/yt/Z6k7jeOQTWs/how-to-integration-powerdns-to-phpipam?list=PLW4lSQGHMQTSowZ4tTSrsWxCfpwBkEpz_
+
+
+
+
 

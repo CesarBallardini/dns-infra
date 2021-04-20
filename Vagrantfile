@@ -58,6 +58,8 @@ $post_up_message = <<POST_UP_MESSAGE
 ------------------------------------------------------
 Infraestructura DNS
 
+* https://nsedit.infra.ballardini.com.ar/
+
 ------------------------------------------------------
 POST_UP_MESSAGE
 

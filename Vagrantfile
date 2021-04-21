@@ -20,8 +20,8 @@ VAGRANTFILE_API_VERSION = "2"
 #generic_box = "debian/bullseye64" # 2021-04-15 no instalan las guest additions
 #generic_box = "debian/buster64" # usa rsync para el sync folder
 
-#generic_box = "ubuntu/focal64"
-generic_box = "debian/contrib-buster64"
+generic_box = "ubuntu/focal64"
+#generic_box = "debian/contrib-buster64"
 
 
 boxes = [

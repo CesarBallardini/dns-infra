@@ -2,7 +2,7 @@
 
 En `docs` se encuentra el archivo `THU_D_Bart_Busschots_DHCP_Configuration.pdf`
 con el contenido de una presentación: *DHCP, DNS & IP Address Management* 
-de Bart Busschots, en la National University of Ireland Maynooth.
+de Bart Busschots, en la National University of Ireland Maynooth[^1].
 
 Vamos a recrear ese modelo de infraestructura de DNS, mediante Vagrant y Virtualbox.
 
@@ -31,6 +31,7 @@ Ejemplo:
 * localslave0, localslave1, etc.
 * dnsresolver0, dnsresolver1, etc.
 
+[^1]: https://conferences.heanet.ie/assets/files/THU_D_Bart_Busschots_DHCP_Configuration.pdf
 
 # Redes
 

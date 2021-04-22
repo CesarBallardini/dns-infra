@@ -36,8 +36,7 @@ wget -O - https://packages.sury.org/php/apt.gpg | sudo tee /etc/apt/trusted.gpg.
 # sudo add-apt-repository ppa:ondrej/nginx-mainline -y # ubuntu
 
 sudo apt update
-
-sudo apt install php7.4-fpm php7.4-common php7.4-mysql php7.4-gmp php7.4-curl php7.4-intl php7.4-mbstring php7.4-xmlrpc php7.4-gd php7.4-xml php7.4-cli php7.4-zip php7.4-soap php7.4-imap php7.4-sqlite3 -y
+sudo apt install php7.4-{fpm,common,mysql,gmp,curl,intl,mbstring,xmlrpc,gd,xml,cli,zip,soap,imap,sqlite3} -y
 
 sudo sed -i "s/^memory_limit = .*/memory_limit = 256M/"  /etc/php/7.4/fpm/php.ini
 
@@ -48,7 +47,6 @@ sudo sed -i "s/^memory_limit = .*/memory_limit = 256M/"  /etc/php/7.4/fpm/php.in
 ```bash
 sudo usermod -a -G www-data nginx
 sudo chown -R www-data /usr/share/nginx/html
-
 
 sudo tee /etc/nginx/conf.d/default.conf  <<'EOF'
 

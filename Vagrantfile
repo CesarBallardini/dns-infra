@@ -65,8 +65,8 @@ boxes = [
         :name => "ipam0",
         :eth1 => "192.168.33.20", :netmask1 => "255.255.255.0",
         :eth2 => "192.168.44.20", :netmask2 => "255.255.255.0",
-        :mem => "1024", :cpu => "1",
-        :box => "debian/buster64",
+        :mem => "2048", :cpu => "2",
+        :box => generic_box,
         :autostart => false
     },
     {

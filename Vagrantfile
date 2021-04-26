@@ -18,7 +18,12 @@ VAGRANTFILE_API_VERSION = "2"
 
 post_up_message_blindmaster0 = <<POST_UP_MESSAGE
 ------------------------------------------------------
-Infraestructura DNS
+Infraestructura DNS - Blind Master
+
+* PowerDNS master con datos en MySQL mysqlmaster0
+* API PowerDNS atiende en 192.168.33.10:8001
+* DNS atiende 192.168.44.10:53
+* nsedit atiende en 192.168.33.10:443
 
 * https://nsedit.infra.ballardini.com.ar/
 
@@ -34,7 +39,19 @@ generic_box = "ubuntu/focal64"
 #generic_box = "debian/contrib-buster64"
 
 
+# Order is important => precedence
+# mysqlmaster0 < blindmaster0
+# mysqlmaster0 < ipam0
+# testinterna0
 boxes = [
+    {
+        :name => "mysqlmaster0",
+        :eth1 => "192.168.33.110", :netmask1 => "255.255.255.0",
+        :eth2 => "192.168.44.110", :netmask2 => "255.255.255.0",
+        :mem => "1024", :cpu => "1",
+        :box => generic_box,
+        :autostart => true
+    },
     {
         :name => "blindmaster0",
         :eth1 => "192.168.33.10", :netmask1 => "255.255.255.0",
@@ -59,14 +76,6 @@ boxes = [
         :mem => "1024", :cpu => "1",
         :box => generic_box,
         :autostart => false
-    },
-    {
-        :name => "mysqlmaster0",
-        :eth1 => "192.168.33.110", :netmask1 => "255.255.255.0",
-        :eth2 => "192.168.44.110", :netmask2 => "255.255.255.0",
-        :mem => "1024", :cpu => "1",
-        :box => generic_box,
-        :autostart => true
     },
 ]
 

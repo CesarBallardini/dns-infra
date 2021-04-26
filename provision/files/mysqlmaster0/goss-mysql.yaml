@@ -1,0 +1,45 @@
+package:
+  mariadb-client:
+    installed: true
+    versions:
+    - 1:10.3.25-0ubuntu0.20.04.1
+  mariadb-client-10.3:
+    installed: true
+    versions:
+    - 1:10.3.25-0ubuntu0.20.04.1
+  mariadb-server:
+    installed: true
+    versions:
+    - 1:10.3.25-0ubuntu0.20.04.1
+  mariadb-server-10.3:
+    installed: true
+    versions:
+    - 1:10.3.25-0ubuntu0.20.04.1
+port:
+  tcp:3306:
+    listening: true
+    ip:
+    - 192.168.33.110
+service:
+  mariadb:
+    enabled: true
+    running: true
+  mysql:
+    enabled: true
+    running: true
+user:
+  mysql:
+    exists: true
+    uid: 112
+    gid: 119
+    groups:
+    - mysql
+    home: /nonexistent
+    shell: /bin/false
+group:
+  mysql:
+    exists: true
+    gid: 119
+process:
+  mysqld:
+    running: true

@@ -15,6 +15,7 @@ Vamos a recrear ese modelo de infraestructura de DNS, mediante Vagrant y Virtual
 * ddiscript: DDI Scripts
 * dhcpmaster, dhcpslave: DHCPd cluster
 * dnsresolver: DNS resolvers
+* mysqlmaster, mysqlslave: cluster de base de datos para almacenar info de la infraestructura
 
 y para simular las solicitudes de DNS, tendremos dos nodos adicionales,
 uno en la red interna y otro en la red externa, para que sus solicitudes 
@@ -53,18 +54,28 @@ Ejemplo:
 | blindmaster0 | nat   | 10.0.2.15      | NAT VB network: internet access                     |
 |              | mgmt  | 192.168.33.10  | management network: provision, ssh                  |
 |              | infra | 192.168.44.10  | infrastructure network: service network for clients |
-|                                                                                             |
+|              |       |                |                                                     |
+| ipam0        | mgmt  | 192.168.33.20  | servidor {php}IPAM                                  |
+|              | mgmt  | 192.168.44.20  |                                                     |
+|              |       |                |                                                     |
 | testinterna0 | mgmt  | 192.168.33.100 | VM con acceso a la ren infra para testing           |
 |              | mgmt  | 192.168.44.100 |                                                     |
+|              |       |                |                                                     |
+| mysqlmaster0 | mgmt  | 192.168.33.110 | MySQL master para PowerDNS en blindmaster0          |
+|              |       |                |                                                     |
 
 
 
 # Que está funcionando en este momento:
 
 * `blindmaster0` tiene instalados:
-  * PowerDNS 
-  * nsedit (instalado manualmente)
+  * PowerDNS: servidor master de la infraestructura de DNS de la organización; accede a `mysqlmaster0` 
+    para almacenar la info de DNS
+  * nsedit: la interfaz Web para los técnicos que gestionan la infraestructura de DNS
+* `ipam0`: el servidor de {php]IPAM para delegar la gestión de nombres en las áreas usuarias; accede a `mysqlmaster0`
+    para almacenar la info de DNS
 * `testinterna0` puede consultar registros de DNS en `blindmaster0`
+* `mysqlmaster0` es el MySQL server para almacenar los datos de PowerDNS en `blindmaster0`
 
 A medida que vaya avanzando, iré actualizando esta sección.  La meta es replicar la arquitectura
 que se describió en la presentación irlandesa.
@@ -124,8 +135,11 @@ FIXME: TODO
 * https://github.com/PowerDNS/pdns-ansible
 * https://github.com/tuxis-ie/nsedit
 * https://github.com/geerlingguy/ansible-role-nginx
-* https://phpipam.net/ phpIPAM – Open source IP address management
-* https://github.com/mrlesmithjr/ansible-phpipam
+* https://phpipam.net/ phpIPAM – Open source IP address management https://github.com/phpipam https://hub.docker.com/u/phpipam
+* https://github.com/mrlesmithjr/ansible-phpipam https://galaxy.ansible.com/CoffeeITWorks/ansible-phpipam
+* https://phpipam-ansible-modules.readthedocs.io/en/develop/README.html gestiona datos en phpIPAM
+* https://readthedocs.org/projects/phpipam-ansible-modules/ https://github.com/codeaffen/phpipam-ansible-modules This collection provides modules to manage entities in a phpIPAM. This is neighter a collection of roles nor playbooks. It provides modules to wrote your own roles and/or playbooks.
+
 * [Instrucciones manuales](docs/manual-install-nsedit.md)  para instalar nsedit en `blindmaster0`.
 
 

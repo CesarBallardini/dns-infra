@@ -1,7 +1,9 @@
 # hosts en Vagrantfile
 
-blindmaster0  ansible_host=192.168.33.10
+blindmaster0  ansible_host=192.168.33.10 
+ipam0         ansible_host=192.168.33.20
 testinterna0  ansible_host=192.168.33.100
+mysqlmaster0  ansible_host=192.168.33.110  ansible_ssh_private_key_file=./.vagrant/machines/mysqlmaster0/virtualbox/private_key
 
 
 
@@ -11,15 +13,25 @@ blindmaster0
 [nsedit]
 blindmaster0
 
+[ipam]
+ipam0
+
+[mysqld]
+mysqlmaster0
+
 
 
 [vagrantnodes]
 blindmaster0
+ipam0
 testinterna0
+mysqlmaster0
 
 [python3]
 blindmaster0
+ipam0
 testinterna0
+mysqlmaster0
 
 [python3:vars]
 ansible_python_interpreter=/usr/bin/python3
@@ -28,11 +40,16 @@ ansible_python_interpreter=/usr/bin/python3
 ansible_user=vagrant
 ansible_password=vagrant
 ansible_sudo_password=vagrant
+ansible_ssh_common_args="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
 
 
 ##
 # si hay errores de hash alterados, correr:
 #
-# ssh-keygen -f "/home/cesarballardini/.ssh/known_hosts" -R 192.168.33.10
-# ssh-keyscan 192.168.33.10 >> ~/.ssh/known_hosts
+# ssh-keygen -f "/home/cesarballardini/.ssh/known_hosts" -R 192.168.33.110
+# ssh-keyscan 192.168.33.110 >> ~/.ssh/known_hosts
+#
+# ssh -i ./.vagrant/machines/mysqlmaster0/virtualbox/private_key -l vagrant 192.168.33.110
+
+
 

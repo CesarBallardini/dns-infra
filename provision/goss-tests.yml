@@ -1,0 +1,62 @@
+---
+# ansible-playbook -i vagrant-inventory provision/goss-tests.yml 
+
+- name: corre tests con Goss
+  hosts: all
+  serial: 1
+  gather_facts: False
+
+  # https://medium.com/@ilyaresh/intro-61e6bab79acb Using goss and Ansible templates for System Testing
+
+  tasks:
+
+    - name: save goss files list
+      set_fact:
+        goss_files : "{{ lookup('fileglob', 'files/{{ inventory_hostname_short }}/goss-*.yaml', wantlist=True) | sort }}"
+
+    - name: print
+      debug:
+        msg: 
+          - "{{ goss_files }}"
+
+
+    - name: Crea arbol dentro de /usr/local/etc/
+      file:
+        state: directory
+        path: "/usr/local/etc/goss/{{ inventory_hostname }}/"
+        owner: root
+        group: root
+        mode: '0600'
+      become: true
+
+    - name: Copy goss test from template to remote
+      template:
+        src: "{{ item }}"
+        dest: "/usr/local/etc/goss/{{ inventory_hostname }}/{{ item | basename }}"
+        mode: '0600'
+      become: true
+      with_items:
+        - "{{ goss_files }}"
+
+    - name: Run goss
+      command: "/usr/local/bin/goss --gossfile /usr/local/etc/goss/{{ inventory_hostname }}/{{ item | basename }} validate --format documentation"
+      with_items:
+        - "{{ goss_files }}"
+      ignore_errors: false
+      changed_when: false
+      become: true
+      register: goss_result
+
+    - name: Print Goss Results
+      debug:
+        msg: "{{ item.stdout_lines }}" 
+      with_items: "{{ goss_result.results }}"
+      no_log: True
+
+    - name: Print Goss return code
+      debug:
+        msg: "Los tests: {{ item.failed }}" 
+      with_items: "{{ goss_result.results }}"
+      no_log: True
+
+

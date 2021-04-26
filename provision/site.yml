@@ -5,10 +5,53 @@
 # ansible-playbook -i vagrant-inventory provision/site.yml 
 
 # ----------------------------------------------------------------
+- hosts: mysqld
+
+  vars_files: 
+    - variables.yaml
+
+  roles:
+    - { role: geerlingguy.mysql, become: true }
+
+  tasks:
+
+    - name: Reload privilege tables
+      command: 'mysql -ne "{{ item }}"'
+      with_items:
+        - FLUSH PRIVILEGES
+      changed_when: False
+      become: true
+
+    - name: asegura que root puede ingresar a MySQL desde 192.168.33.10
+      community.mysql.mysql_user:
+        name: root
+        password: myrootpass
+        priv: '*.*:ALL,GRANT'
+        append_privs: true
+        host: 192.168.33.10
+        state: present
+      changed_when: False
+      become: true
+
+
+
+    - include_tasks: tasks/devops_goss.yml
+
+# ----------------------------------------------------------------
 - hosts: powerdns
 
   vars_files: 
     - variables.yaml
+
+  pre_tasks:
+    - name: Copy .my.cnf file with root password credentials.
+      template:
+        src: "root-my.cnf.j2"
+        dest: "/root/.my.cnf"
+        owner: root
+        group: root
+        mode: 0600
+      become: true
 
   roles:
     - { role: PowerDNS.pdns, become: true }
@@ -41,4 +84,8 @@
 
   roles:
     - { role: nsedit, become: true }
+
+# ----------------------------------------------------------------
+- hosts: ipam
+
 

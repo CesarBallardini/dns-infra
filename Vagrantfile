@@ -16,6 +16,16 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+post_up_message_blindmaster0 = <<POST_UP_MESSAGE
+------------------------------------------------------
+Infraestructura DNS
+
+* https://nsedit.infra.ballardini.com.ar/
+
+------------------------------------------------------
+POST_UP_MESSAGE
+
+
 #generic_box = "alpine-linux/alpine-x86_64" # Alpine not supported Virtualbox Guest Additions
 #generic_box = "debian/bullseye64" # 2021-04-15 no instalan las guest additions
 #generic_box = "debian/buster64" # usa rsync para el sync folder
@@ -31,7 +41,16 @@ boxes = [
         :eth2 => "192.168.44.10", :netmask2 => "255.255.255.0",
         :mem => "1024", :cpu => "1",
         :box => generic_box,
-        :autostart => true
+        :autostart => true,
+        :post_up_message => post_up_message_blindmaster0
+    },
+    {
+        :name => "ipam0",
+        :eth1 => "192.168.33.20", :netmask1 => "255.255.255.0",
+        :eth2 => "192.168.44.20", :netmask2 => "255.255.255.0",
+        :mem => "1024", :cpu => "1",
+        :box => "debian/buster64",
+        :autostart => false
     },
     {
         :name => "testinterna0",
@@ -39,34 +58,24 @@ boxes = [
         :eth2 => "192.168.44.100", :netmask2 => "255.255.255.0",
         :mem => "1024", :cpu => "1",
         :box => generic_box,
-        :autostart => true
+        :autostart => false
     },
     {
-        :name => "nodo3",
-        :eth1 => "192.168.33.12", :netmask1 => "255.255.255.0",
-        :eth2 => "192.168.44.12", :netmask2 => "255.255.255.0",
+        :name => "mysqlmaster0",
+        :eth1 => "192.168.33.110", :netmask1 => "255.255.255.0",
+        :eth2 => "192.168.44.110", :netmask2 => "255.255.255.0",
         :mem => "1024", :cpu => "1",
         :box => generic_box,
-        :autostart => false
-    }
+        :autostart => true
+    },
 ]
 
 DOMAIN   = "infra.ballardini.com.ar"
 
 
-$post_up_message = <<POST_UP_MESSAGE
-------------------------------------------------------
-Infraestructura DNS
-
-* https://nsedit.infra.ballardini.com.ar/
-
-------------------------------------------------------
-POST_UP_MESSAGE
-
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.post_up_message = $post_up_message
 
   if Vagrant.has_plugin?("vagrant-hostmanager")
     config.hostmanager.enabled = true
@@ -96,6 +105,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       nodo.vm.hostname = nodo_opts[:name]
       nodo.vm.box = nodo_opts[:box]
 
+      if nodo_opts.key?(:post_up_message)
+        nodo.vm.post_up_message = nodo_opts[:post_up_message]
+      end
       nodo.vm.boot_timeout = 3600
       nodo.vm.box_check_update = true
       nodo.ssh.forward_agent = true
@@ -167,7 +179,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
     end
 
-    config.vm.provision "ansible-provision", type: :ansible do |ansible|
+    config.vm.provision "provision", type: :ansible do |ansible|
       ansible.playbook = "provision/site.yml"
       ansible.config_file = "./vagrant-inventory/ansible.cfg"
       ansible.inventory_path = "./vagrant-inventory/"
@@ -181,7 +193,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         https_proxy: ENV['https_proxy'] || "",
         ftp_proxy:   ENV['ftp_proxy']   || "",
         no_proxy:    ENV['no_proxy']    || "",
+      }
+    end
 
+    config.vm.provision "test", type: :ansible do |ansible|
+      ansible.playbook = "provision/goss-tests.yml"
+      ansible.config_file = "./vagrant-inventory/ansible.cfg"
+      ansible.inventory_path = "./vagrant-inventory/"
+      ansible.verbose= "-vv"
+      ansible.become = false
+      # heredo la configuracion de Proxy del entorno del host Vagrant:
+      ansible.extra_vars = {
+        organizacion: "My organization",
+        all_proxy:   ENV['all_proxy']   || ENV['http_proxy']  || "",
+        http_proxy:  ENV['http_proxy']  || "",
+        https_proxy: ENV['https_proxy'] || "",
+        ftp_proxy:   ENV['ftp_proxy']   || "",
+        no_proxy:    ENV['no_proxy']    || "",
       }
     end
 

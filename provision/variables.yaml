@@ -1,8 +1,48 @@
 ---
+
+#
+# MySQL config
+#
+
+mysql_packages:
+  - mariadb-client
+  - mariadb-server
+  - python3-mysqldb
+  #- python3-pymysql
+
+mysql_socket: /var/run/mysqld/mysqld.sock
+
+mysql_root_username: root
+mysql_root_password: myrootpass
+
+# fuerza el cambio de password en la corrida
+mysql_root_password_update: false
+
+mysql_bind_address: 192.168.33.110
+mysql_port: "3306"
+
+mysql_users:
+  - name: powerdns
+    password: P0w3rDn5
+    host: 192.168.33.10
+    priv: 'pdns.*:ALL'
+    append_privs: no
+  - name: powerdns
+    password: P0w3rDn5
+    host: 192.168.33.20
+    priv: 'pdns.*:ALL'
+    append_privs: no
+
+
+mysql_databases:
+   - name: pdns
+     collation: utf8_general_ci
+     encoding: utf8
+     replicate: 1
+
 #
 # PowerDNS config
 #
-database_name: '/var/lib/powerdns/db.sqlite'
 pdns_config:
   master: true
   slave: false
@@ -15,12 +55,21 @@ pdns_config:
   webserver-address: "192.168.33.10"
   webserver-port: "8001"
   webserver-allow-from: "192.168.33.10"
+
 pdns_backends:
-  gsqlite3:
-    database: "{{ database_name }}"
-    dnssec: yes
-pdns_sqlite_databases_locations:
-  - "{{ database_name }}"
+  gmysql:
+    host: '192.168.33.110'
+    port: '3306'
+    user: powerdns
+    password: P0w3rDn5
+    dbname: pdns
+
+pdns_mysql_databases_credentials:
+  gmysql:
+    priv_user: root
+    priv_password: myrootpass
+    priv_host:
+      - 192.168.33.110
 
 #
 # PowerDNS config needed by nsedit

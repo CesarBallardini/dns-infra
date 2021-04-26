@@ -1,5 +1,10 @@
 ---
 
+- src: https://github.com/geerlingguy/ansible-role-mysql
+  version: 3.3.0
+  scm: git
+  name: geerlingguy.mysql
+
 - src: https://github.com/PowerDNS/pdns-ansible
   version: v1.6.1
   scm: git

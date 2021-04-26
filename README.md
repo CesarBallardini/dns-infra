@@ -113,18 +113,22 @@ ansible-galaxy install -r requirements.yml --roles-path=provision/roles/
 time vagrant up
 ```
 
+Instalar el nodo `ipam0` según [instrucciones manuales](docs/manual-install-phpipam.md).
+
 ## Verificar el funcionamiento
 
 * dar de alta en DNS el nodo, por ejemplo:
 
 ```bash
-echo '192.168.33.10   nsedit.infra.ballardini.com.ar' | sudo tee /etc/hosts > /dev/null
+echo '192.168.33.10   nsedit.infra.ballardini.com.ar' | sudo tee --append /etc/hosts > /dev/null
+echo '192.168.33.20     ipam.infra.ballardini.com.ar' | sudo tee --append /etc/hosts > /dev/null
 ```
 
 
 * [Verificaciones mínimas para PowerDNS](docs/verificaciones-powerdns.md)
 
 * http://https://nsedit.infra.ballardini.com.ar/   credenciales: `admin / admin`
+* http://https://ipam.infra.ballardini.com.ar/   credenciales: `admin / ipamadmin`
 
 FIXME: TODO
 

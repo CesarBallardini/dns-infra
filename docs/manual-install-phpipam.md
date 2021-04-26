@@ -250,11 +250,9 @@ EOF
 
 ## CLI UI Config - API
 
-| id | app_id   | app_code                         | app_permissions | app_comment                          | app_security | app_lock | app_lock_wait | app_nest_custom_fields | app_show_links | app_last_access |
+* crea un token para la app PowerDNS
 
-|  1 | PowerDNS | qXG-EXDYC0hpvhUArTepRea1L-xFxoCv |               3 | Interacts with PowerDNS blind server | ssl_token    |        0 |             0 |                      0 |              0 | NULL            |
-
-
+```bash
 sudo mysql --table --user root  --database=phpipam << 'EOF'
 INSERT INTO api (app_id,
                  app_code,
@@ -274,7 +272,7 @@ VALUES ('PowerDNS',
 
 
 EOF
-
+```
 
 # Referencias
 

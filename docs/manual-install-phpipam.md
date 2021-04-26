@@ -67,8 +67,6 @@ sudo sed -i "s/^memory_limit = .*/memory_limit = 256M/"  /etc/php/7.4/fpm/php.in
 ```
 
 
-```
-
 * descarga phpipam
 
 ```bash

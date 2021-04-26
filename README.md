@@ -58,7 +58,7 @@ Ejemplo:
 | ipam0        | mgmt  | 192.168.33.20  | servidor {php}IPAM                                  |
 |              | mgmt  | 192.168.44.20  |                                                     |
 |              |       |                |                                                     |
-| testinterna0 | mgmt  | 192.168.33.100 | VM con acceso a la ren infra para testing           |
+| testinterna0 | mgmt  | 192.168.33.100 | VM con acceso a la red infra para testing           |
 |              | mgmt  | 192.168.44.100 |                                                     |
 |              |       |                |                                                     |
 | mysqlmaster0 | mgmt  | 192.168.33.110 | MySQL master para PowerDNS en blindmaster0          |
